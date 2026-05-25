@@ -19,7 +19,7 @@ defmodule MultiCountryPayrollWeb.Router do
     live "/role-management", RoleManagementLive, :index
   end
 
-  if Mix.env() == :dev do
+  if Application.compile_env(:multi_country_payroll, :dev_routes) do
     import Phoenix.LiveDashboard.Router
 
     scope "/dev" do
