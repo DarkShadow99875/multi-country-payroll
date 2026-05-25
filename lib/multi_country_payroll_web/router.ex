@@ -18,13 +18,4 @@ defmodule MultiCountryPayrollWeb.Router do
     live "/analytics", AnalyticsLive, :index
     live "/role-management", RoleManagementLive, :index
   end
-
-  if Application.compile_env(:multi_country_payroll, :dev_routes) do
-    import Phoenix.LiveDashboard.Router
-
-    scope "/dev" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: MultiCountryPayrollWeb.Telemetry
-    end
-  end
 end
