@@ -7,21 +7,23 @@ defmodule MultiCountryPayroll.Employees.Employee do
     field :email, :string
     field :country, :string
     field :job_title, :string
-    field :salary_gross_monthly, :decimal
     field :employment_type, :string
-    field :start_date, :date
+    field :salary_gross_monthly, :decimal
     field :status, :string, default: "active"
-
-    belongs_to :company, MultiCountryPayroll.Companies.Company
+    field :company_id, :id
 
     timestamps(type: :utc_datetime)
   end
 
   def changeset(employee, attrs) do
     employee
-    |> cast(attrs, [:full_name, :email, :country, :job_title, :salary_gross_monthly, :employment_type, :start_date, :status, :company_id])
-    |> validate_required([:full_name, :email, :country, :salary_gross_monthly, :employment_type])
-    |> validate_inclusion(:country, ["IT", "US", "DE", "NL", "ES", "FR"])
-    |> validate_inclusion(:employment_type, ["full_time", "part_time", "contractor"])
+    |> cast(attrs, [:full_name, :email, :country, :job_title, :employment_type, :salary_gross_monthly, :status, :company_id])
+    |> validate_required([:full_name, :email, :country, :employment_type, :salary_gross_monthly, :company_id])
+  end
+
+  def employee_self_changeset(employee, attrs) do
+    employee
+    |> cast(attrs, [:full_name, :email, :job_title])
+    |> validate_required([:full_name, :email])
   end
 end
