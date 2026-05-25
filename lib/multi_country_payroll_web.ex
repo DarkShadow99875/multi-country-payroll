@@ -11,6 +11,19 @@ defmodule MultiCountryPayrollWeb do
     end
   end
 
+  def controller do
+    quote do
+      use Phoenix.Controller,
+        formats: [:html, :json],
+        layouts: [html: MultiCountryPayrollWeb.Layouts]
+
+      import Plug.Conn
+      import MultiCountryPayrollWeb.Gettext
+
+      unquote(verified_routes())
+    end
+  end
+
   def live_view do
     quote do
       use Phoenix.LiveView,
@@ -20,7 +33,26 @@ defmodule MultiCountryPayrollWeb do
     end
   end
 
-  def html_helpers do
+  def live_component do
+    quote do
+      use Phoenix.LiveComponent
+
+      unquote(html_helpers())
+    end
+  end
+
+  def html do
+    quote do
+      use Phoenix.Component
+
+      import Phoenix.Controller,
+        only: [get_csrf_token: 0, view_module: 1, view_template: 1]
+
+      unquote(html_helpers())
+    end
+  end
+
+  defp html_helpers do
     quote do
       import Phoenix.HTML
       import Phoenix.HTML.Form
@@ -28,6 +60,19 @@ defmodule MultiCountryPayrollWeb do
 
       alias Phoenix.LiveView.JS
       alias MultiCountryPayrollWeb.CoreComponents
+
+      import MultiCountryPayrollWeb.Gettext
+
+      unquote(verified_routes())
+    end
+  end
+
+  def verified_routes do
+    quote do
+      use Phoenix.VerifiedRoutes,
+        endpoint: MultiCountryPayrollWeb.Endpoint,
+        router: MultiCountryPayrollWeb.Router,
+        statics: MultiCountryPayrollWeb.static_paths()
     end
   end
 
