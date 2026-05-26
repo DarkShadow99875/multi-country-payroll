@@ -13,6 +13,14 @@ defmodule MultiCountryPayroll.Accounts do
 
   def get_user!(id), do: Repo.get!(User, id)
 
+  def authenticate(email, password) do
+    # Mock authentication for demo (in real app use bcrypt)
+    case get_user_by_email(email) do
+      nil -> {:error, :invalid_credentials}
+      user -> {:ok, user}
+    end
+  end
+
   def create_mock_users do
     Repo.insert!(%User{
       email: "admin@acme.it",
