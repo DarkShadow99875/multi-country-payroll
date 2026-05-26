@@ -1,11 +1,9 @@
 import Config
 
-# Configure your database
+# Use SQLite for fast tests in CI (no external DB needed)
 config :multi_country_payroll, MultiCountryPayroll.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "multi_country_payroll_test#{System.get_env("MIX_TEST_PARTITION")}",
+  adapter: Ecto.Adapters.SQLite3,
+  database: ":memory:",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2
 
