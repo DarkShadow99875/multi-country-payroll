@@ -37,3 +37,7 @@ config :phoenix, :plug_init_mode, :runtime
 
 config :phoenix_live_view,
   enable_expensive_runtime_checks: true
+
+# Import environment specific config. This must remain at the bottom
+# of this file so it overrides the configuration defined above.
+import_config "#{config_env()}.exs"
