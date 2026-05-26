@@ -29,6 +29,7 @@ defmodule MultiCountryPayroll.MixProject do
       {:phoenix_ecto, "~> 4.5"},
       {:ecto_sql, "~> 3.12"},
       {:postgrex, ">= 0.0.0"},
+      {:ecto_sqlite3, "~> 0.17", only: :test},   # For fast CI tests
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.5", only: :dev},
       {:phoenix_live_view, "~> 1.0"},
@@ -45,9 +46,9 @@ defmodule MultiCountryPayroll.MixProject do
       {:bandit, "~> 1.5"},
       {:chromic_pdf, "~> 1.17"},
       # === ENTERPRISE FEATURES ===
-      {:bcrypt_elixir, "~> 3.0"},      # Real password hashing
-      {:oban, "~> 2.17"},               # Background jobs
-      {:contex, "~> 0.5.0"}             # Charts for analytics
+      {:bcrypt_elixir, "~> 3.0"},
+      {:oban, "~> 2.17"},
+      {:contex, "~> 0.5.0"}
     ]
   end
 
