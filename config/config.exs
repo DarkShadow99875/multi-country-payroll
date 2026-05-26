@@ -38,8 +38,10 @@ config :phoenix, :plug_init_mode, :runtime
 config :phoenix_live_view,
   enable_expensive_runtime_checks: true
 
-# Oban configuration (background jobs)
-config :oban, repo: MultiCountryPayroll.Repo, queues: [default: 10]
+# Oban configuration (under the app namespace as expected by Application.fetch_env!)
+config :multi_country_payroll, Oban,
+  repo: MultiCountryPayroll.Repo,
+  queues: [default: 10]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
