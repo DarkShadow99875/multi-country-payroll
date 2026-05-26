@@ -3,6 +3,7 @@ defmodule MultiCountryPayrollWeb.DashboardLive do
 
   alias MultiCountryPayroll.{Companies, Employees, Payroll}
 
+  @impl true
   def mount(_params, _session, socket) do
     companies = Companies.list_companies()
     selected_company = List.first(companies)
@@ -82,6 +83,7 @@ defmodule MultiCountryPayrollWeb.DashboardLive do
     Enum.filter(employees, &(&1.status == status))
   end
 
+  @impl true
   def render(assigns) do
     ~H"""
     <div class="min-h-screen bg-zinc-950 text-white p-8">
