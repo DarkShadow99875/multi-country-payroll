@@ -22,6 +22,7 @@ defmodule MultiCountryPayrollWeb.DashboardLive do
     )}
   end
 
+  @impl true
   def handle_event("filter", params, socket) do
     search = Map.get(params, "search", "")
     country = Map.get(params, "country", "")
@@ -39,6 +40,13 @@ defmodule MultiCountryPayrollWeb.DashboardLive do
       employment_type_filter: employment_type,
       status_filter: status
     )}
+  end
+
+  @impl true
+  def handle_event("select_employee", %{"employee_id" => id}, socket) do
+    employee = Employees.get_employee!(String.to_integer(id))
+    payroll = Payroll.calculate(employee)
+    {:noreply, assign(socket, selected_employee: employee, payroll_result: payroll)}
   end
 
   defp filter_employees(employees, search, country, employment_type, status) do
@@ -72,12 +80,6 @@ defmodule MultiCountryPayrollWeb.DashboardLive do
   defp filter_by_status(employees, "all"), do: employees
   defp filter_by_status(employees, status) do
     Enum.filter(employees, &(&1.status == status))
-  end
-
-  def handle_event("select_employee", %{"employee_id" => id}, socket) do
-    employee = Employees.get_employee!(String.to_integer(id))
-    payroll = Payroll.calculate(employee)
-    {:noreply, assign(socket, selected_employee: employee, payroll_result: payroll)}
   end
 
   def render(assigns) do
