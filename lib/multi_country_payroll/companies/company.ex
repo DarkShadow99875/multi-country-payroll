@@ -1,29 +1,23 @@
-defmodule MultiCountryPayroll.Employees.Employee do
+defmodule MultiCountryPayroll.Companies.Company do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "employees" do
-    field :full_name, :string
-    field :email, :string
+  schema "companies" do
+    field :name, :string
     field :country, :string
-    field :job_title, :string
-    field :employment_type, :string
-    field :salary_gross_monthly, :decimal
-    field :status, :string, default: "active"
-    field :company_id, :id
+    field :tax_id, :string
+    field :address, :string
+    field :currency, :string, default: "EUR"
+
+    has_many :employees, MultiCountryPayroll.Employees.Employee
 
     timestamps(type: :utc_datetime)
   end
 
-  def changeset(employee, attrs) do
-    employee
-    |> cast(attrs, [:full_name, :email, :country, :job_title, :employment_type, :salary_gross_monthly, :status, :company_id])
-    |> validate_required([:full_name, :email, :country, :employment_type, :salary_gross_monthly, :company_id])
-  end
-
-  def employee_self_changeset(employee, attrs) do
-    employee
-    |> cast(attrs, [:full_name, :email, :job_title])
-    |> validate_required([:full_name, :email])
+  def changeset(company, attrs) do
+    company
+    |> cast(attrs, [:name, :country, :tax_id, :address, :currency])
+    |> validate_required([:name, :country])
+    |> unique_constraint(:tax_id)
   end
 end
