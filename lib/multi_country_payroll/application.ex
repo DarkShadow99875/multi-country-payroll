@@ -6,12 +6,18 @@ defmodule MultiCountryPayroll.Application do
     children = [
       MultiCountryPayroll.Repo,
       {Phoenix.PubSub, name: MultiCountryPayroll.PubSub},
-      # Oban - Background Jobs
-      {Oban, Application.fetch_env!(:multi_country_payroll, Oban)},
       MultiCountryPayrollWeb.Endpoint
     ]
 
-    # DNSCluster is optional (only start if query is configured)
+    # Oban - only start if not in test (to avoid DB issues in CI)
+    children =
+      if Mix.env() != :test do
+        children ++ [{Oban, Application.fetch_env!(:multi_country_payroll, Oban)}]
+      else
+        children
+      end
+
+    # DNSCluster is optional
     dns_query = Application.get_env(:multi_country_payroll, :dns_cluster_query)
     children =
       if dns_query && dns_query != "" do
