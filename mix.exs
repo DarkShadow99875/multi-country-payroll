@@ -30,6 +30,7 @@ defmodule MultiCountryPayroll.MixProject do
       {:ecto_sql, "~> 3.12"},
       {:postgrex, ">= 0.0.0"},
       {:ecto_sqlite3, "~> 0.17", only: :test},
+      {:nimble_totp, "~> 1.0"},           # Per Microsoft Authenticator (TOTP)
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.5", only: :dev},
       {:phoenix_live_view, "~> 1.0"},
@@ -45,7 +46,6 @@ defmodule MultiCountryPayroll.MixProject do
       {:dns_cluster, "~> 0.1.3"},
       {:bandit, "~> 1.5"},
       {:chromic_pdf, "~> 1.17"},
-      # === ENTERPRISE FEATURES ===
       {:bcrypt_elixir, "~> 3.0"},
       {:oban, "~> 2.17"},
       {:contex, "~> 0.5.0"}
