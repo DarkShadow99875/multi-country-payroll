@@ -28,7 +28,7 @@ defmodule MultiCountryPayroll.PayrollTest do
       result = Payroll.calculate(employee)
 
       assert result.gross == 3000.0
-      assert result.tax == 750.0  # 25% default
+      assert result.tax == 690.0  # 23% default
     end
   end
 end
