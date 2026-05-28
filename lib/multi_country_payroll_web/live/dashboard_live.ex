@@ -50,6 +50,15 @@ defmodule MultiCountryPayrollWeb.DashboardLive do
     {:noreply, assign(socket, selected_employee: employee, payroll_result: payroll)}
   end
 
+  @impl true
+  def handle_event("generate_payslip", _params, socket) do
+    if socket.assigns.selected_employee && socket.assigns.payroll_result do
+      {:noreply, put_flash(socket, :info, "Payslip generato con successo! (Demo)")}
+    else
+      {:noreply, put_flash(socket, :error, "Seleziona prima un dipendente")}
+    end
+  end
+
   defp filter_employees(employees, search, country, employment_type, status) do
     employees
     |> filter_by_search(search)
@@ -174,9 +183,14 @@ defmodule MultiCountryPayrollWeb.DashboardLive do
         </div>
 
         <!-- Payroll Details -->
-        <%= if @selected_employee do %>
+        <%= if @selected_employee && @payroll_result do %>
           <div class="mt-8 bg-zinc-900 rounded-2xl p-8">
-            <h2 class="font-semibold mb-4">Payroll Details - <%= @selected_employee.full_name %></h2>
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="font-semibold">Payroll Details - <%= @selected_employee.full_name %></h2>
+              <button phx-click="generate_payslip" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-sm font-semibold">
+                Generate Payslip PDF
+              </button>
+            </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div><span class="text-zinc-400">Gross</span><br><span class="font-mono text-lg"><%= @payroll_result.gross %> €</span></div>
               <div><span class="text-zinc-400">Tax</span><br><span class="font-mono text-red-400"><%= @payroll_result.tax %> €</span></div>
