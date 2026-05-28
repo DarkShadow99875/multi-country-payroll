@@ -91,7 +91,7 @@ defmodule MultiCountryPayrollWeb.LoginLive do
           <% else %>
             <div class="text-center">
               <div class="mx-auto w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mb-6">
-                <.icon name="hero-lock-closed" class="w-8 h-8 text-white" />
+                <Heroicons.lock_closed class="w-8 h-8 text-white" />
               </div>
               <h2 class="text-2xl font-semibold text-white mb-2">Two-Factor Authentication</h2>
               <p class="text-zinc-400 mb-8">Enter the 6-digit code from your authenticator app or email</p>
