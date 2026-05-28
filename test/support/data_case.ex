@@ -20,9 +20,8 @@ defmodule MultiCountryPayroll.DataCase do
     end
   end
 
-  setup tags do
-    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(MultiCountryPayroll.Repo, shared: not tags[:async])
-    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
+  setup _tags do
+    # Simplified for CI with SQLite
     :ok
   end
 
