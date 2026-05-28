@@ -35,7 +35,7 @@ defmodule MultiCountryPayrollWeb.LoginLive do
   end
 
   def handle_event("choose_mfa", %{"method" => method}, socket) do
-    user = socket.assigns.current_user
+    _user = socket.assigns.current_user
 
     if method == "totp" do
       secret = NimbleTOTP.secret()
@@ -102,9 +102,11 @@ defmodule MultiCountryPayrollWeb.LoginLive do
               </button>
             </form>
 
-          <% end %>
+            <div class="mt-8 text-center text-sm text-zinc-500">
+              Do not have an account? <a href="#" class="text-emerald-400 hover:underline">Sign up</a>
+            </div>
 
-          <%= if @step == :choose_mfa do %>
+          <% else if @step == :choose_mfa do %>
             <div class="text-center">
               <h2 class="text-2xl font-semibold text-white mb-4">Scegli il metodo di autenticazione a due fattori</h2>
               <p class="text-zinc-400 mb-8">Per la tua sicurezza, configura ora l'autenticazione a due fattori.</p>
@@ -119,9 +121,8 @@ defmodule MultiCountryPayrollWeb.LoginLive do
                 </button>
               </div>
             </div>
-          <% end %>
 
-          <%= if @step == :setup_totp do %>
+          <% else if @step == :setup_totp do %>
             <div class="text-center">
               <h2 class="text-2xl font-semibold text-white mb-4">Configura Microsoft Authenticator</h2>
               <p class="text-zinc-400 mb-6">Scansiona questo QR code con l'app Microsoft Authenticator</p>
@@ -148,9 +149,8 @@ defmodule MultiCountryPayrollWeb.LoginLive do
                 </button>
               </form>
             </div>
-          <% end %>
 
-          <%= if @step == :mfa do %>
+          <% else %>
             <div class="text-center">
               <div class="mx-auto w-16 h-16 bg-zinc-800 rounded-full flex items-center justify-center mb-6">
                 <span class="text-4xl">🔐</span>
