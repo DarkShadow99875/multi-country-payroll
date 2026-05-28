@@ -21,6 +21,12 @@ defmodule MultiCountryPayroll.Accounts do
     end
   end
 
+  def update_user_mfa(user, attrs) do
+    user
+    |> User.changeset(attrs)
+    |> Repo.update()
+  end
+
   def create_mock_users do
     Repo.insert!(%User{
       email: "admin@acme.it",
