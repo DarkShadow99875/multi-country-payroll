@@ -76,7 +76,6 @@ lib/
 - **Global Scale Ready** — Multi-country logic with realistic tax rules
 - **Modern Tech Stack** — Elixir 1.18 + Phoenix 1.7 + LiveView + Oban
 
-**Built with ❤️ by DarkShadow99875**
 
 ## License
 
