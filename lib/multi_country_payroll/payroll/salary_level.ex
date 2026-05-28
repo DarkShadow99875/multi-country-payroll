@@ -5,9 +5,9 @@ defmodule MultiCountryPayroll.Payroll.SalaryLevel do
   schema "salary_levels" do
     field :country, :string
     field :job_title, :string
-    field :level, :string                    # Junior, Mid, Senior, Lead, Principal
-    field :min_salary, :decimal, precision: 12, scale: 2
-    field :max_salary, :decimal, precision: 12, scale: 2
+    field :level, :string
+    field :min_salary, :decimal
+    field :max_salary, :decimal
     field :currency, :string, default: "EUR"
     field :description, :string
 
