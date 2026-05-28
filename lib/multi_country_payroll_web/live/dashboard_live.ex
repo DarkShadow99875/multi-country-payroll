@@ -1,7 +1,7 @@
 defmodule MultiCountryPayrollWeb.DashboardLive do
   use MultiCountryPayrollWeb, :live_view
 
-  alias MultiCountryPayroll.{Companies, Employees, Payroll}
+  alias MultiCountryPayroll.{Companies, Employees}
 
   def mount(_params, _session, socket) do
     companies = Companies.list_companies()
