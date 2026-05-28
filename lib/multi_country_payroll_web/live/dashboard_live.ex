@@ -1,7 +1,7 @@
 defmodule MultiCountryPayrollWeb.DashboardLive do
   use MultiCountryPayrollWeb, :live_view
 
-  alias MultiCountryPayroll.{Companies, Employees, Payroll, Accounts}
+  alias MultiCountryPayroll.{Companies, Employees, Payroll}
 
   def mount(_params, _session, socket) do
     companies = Companies.list_companies()
@@ -26,18 +26,15 @@ defmodule MultiCountryPayrollWeb.DashboardLive do
     )}
   end
 
-  def handle_event("filter", params, socket) do
-    # ... mantieni codice esistente
+  def handle_event("filter", _params, socket) do
     {:noreply, socket}
   end
 
-  def handle_event("select_employee", %{"employee_id" => id}, socket) do
-    # ... mantieni codice esistente
+  def handle_event("select_employee", %{"employee_id" => _id}, socket) do
     {:noreply, socket}
   end
 
   def handle_event("generate_payslip", _params, socket) do
-    # ... mantieni codice esistente
     {:noreply, socket}
   end
 
@@ -62,20 +59,36 @@ defmodule MultiCountryPayrollWeb.DashboardLive do
           </div>
         </div>
 
-        <!-- Advanced Filters -->
         <div class="bg-zinc-900 rounded-2xl p-6 mb-6">
-          <!-- ... mantieni codice esistente -->
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div class="md:col-span-2">
+              <label class="block text-sm text-zinc-400 mb-1">Search</label>
+              <input type="text" name="search" value={@search} phx-change="filter" phx-debounce="300" placeholder="Search..." class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2" />
+            </div>
+          </div>
         </div>
 
-        <!-- Employees Table -->
         <div class="bg-zinc-900 rounded-2xl p-6">
-          <!-- ... mantieni codice esistente -->
+          <h2 class="font-semibold mb-4">Employees (<%= length(@filtered_employees) %>)</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="border-b border-zinc-700 text-left text-sm text-zinc-400">
+                  <th class="py-3 px-4">Name</th>
+                  <th class="py-3 px-4">Gross Salary</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= for employee <- @filtered_employees do %>
+                  <tr>
+                    <td class="py-3 px-4"><%= employee.full_name %></td>
+                    <td class="py-3 px-4 font-mono"><%= employee.salary_gross_monthly %> €</td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
-
-        <!-- Payroll Details -->
-        <%= if @selected_employee && @payroll_result do %>
-          <!-- ... mantieni codice esistente -->
-        <% end %>
       </div>
     </div>
     """
