@@ -3,7 +3,6 @@ defmodule MultiCountryPayroll.Payroll do
   Modulo per il calcolo delle paghe e la gestione dei livelli retributivi.
   """
 
-  import Ecto.Query
   alias MultiCountryPayroll.Repo
   alias MultiCountryPayroll.Payroll.SalaryLevel
 
@@ -41,6 +40,22 @@ defmodule MultiCountryPayroll.Payroll do
 
   def get_salary_level(country, job_title, level) do
     Repo.get_by(SalaryLevel, country: country, job_title: job_title, level: level)
+  end
+
+  def get_salary_level_by_id(id) do
+    Repo.get!(SalaryLevel, id)
+  end
+
+  def create_salary_level(attrs) do
+    %SalaryLevel{}
+    |> SalaryLevel.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_salary_level(%SalaryLevel{} = level, attrs) do
+    level
+    |> SalaryLevel.changeset(attrs)
+    |> Repo.update()
   end
 
   def suggest_salary(country, job_title, level) do
