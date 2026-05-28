@@ -1,8 +1,10 @@
-# Multi-Country Payroll Simulator
+# MultiCountryPayroll
 
 **Enterprise-grade international payroll management system** built with Elixir + Phoenix + LiveView.
 
-A production-ready simulation showcasing advanced features for global HR and payroll operations.
+**Created by DarkShadow99875 (2026)**
+
+A complete, production-ready simulation showcasing advanced features for global HR and payroll operations.
 
 ## Key Features
 
@@ -14,32 +16,20 @@ A production-ready simulation showcasing advanced features for global HR and pay
 - **PDF Payslip Generation** — Professional payslip export
 
 ### Enterprise Features
+- **Multi-Factor Authentication (MFA)** — Microsoft Authenticator (TOTP) + Email OTP with method selection
 - **Background Jobs (Oban)** — Asynchronous payroll processing and notifications
 - **Audit Logging** — Complete action history for compliance
-- **Role-Based Access Control** — Mock Active Directory integration with role management
+- **Role-Based Access Control** — Mock Active Directory integration
 - **Analytics Dashboard** — Real-time metrics and country distribution
-- **Real-time Updates** — Phoenix PubSub powered live updates
 
-### Technical Highlights
-- Clean architecture with Contexts
-- Progressive tax calculation engine
-- Modern LiveView UI
-- Enterprise-ready dependencies (bcrypt, Oban, Contex)
+## Tech Stack
 
-## Supported Countries
-
-| Country | Tax Rate | Social Security | Employer Contribution |
-|---------|----------|-----------------|-----------------------|
-| Italy | 23% | 9.19% | 30% |
-| United States | 22% | 6.2% | 7.65% |
-| Germany | 25% | 18.6% | 20% |
-| Netherlands | 37% | - | - |
-| Spain | 19% | 6.35% | 30% |
-| France | 30% | 22% | 42% |
-| United Kingdom | 20% | 12% | 13.8% |
-| Canada | 25% | 4.95% | - |
-| Australia | 30% | - | - |
-| Brazil | 27.5% | 7.5% | 20% |
+- Elixir 1.18 + Phoenix 1.7 + LiveView
+- Ecto + PostgreSQL (production) / SQLite (tests)
+- Tailwind CSS + Heroicons
+- NimbleTOTP for Microsoft Authenticator
+- ChromicPDF for PDF generation
+- Oban for background jobs
 
 ## Getting Started
 
@@ -65,7 +55,7 @@ Open http://localhost:4000
 ```
 lib/
 ├── multi_country_payroll/
-│   ├── accounts/           # Authentication & RBAC
+│   ├── accounts/           # Authentication & MFA
 │   ├── companies/
 │   ├── employees/
 │   ├── payroll/            # Advanced calculation engine
@@ -73,21 +63,20 @@ lib/
 │   └── audit/
 └── multi_country_payroll_web/
     └── live/
-        ├── dashboard_live.ex     # Advanced filters + CRUD
+        ├── dashboard_live.ex     # Advanced filters + CRUD + PDF
         ├── employee_portal_live.ex
-        ├── analytics_live.ex     # Metrics dashboard
-        ├── login_live.ex
-        └── role_management_live.ex
+        ├── analytics_live.ex
+        └── login_live.ex         # MFA with Microsoft Authenticator
 ```
 
 ## Why This Project Stands Out
 
+- **Complete MFA System** — Microsoft Authenticator + Email OTP with user choice
 - **Production-Ready Architecture** — Clean separation of concerns
-- **Real Enterprise Features** — Background processing, audit trails, RBAC
 - **Global Scale Ready** — Multi-country logic with realistic tax rules
 - **Modern Tech Stack** — Elixir 1.18 + Phoenix 1.7 + LiveView + Oban
 
-Built as a demonstration of advanced Elixir/Phoenix capabilities for global payroll systems.
+**Built with ❤️ by DarkShadow99875**
 
 ## License
 
